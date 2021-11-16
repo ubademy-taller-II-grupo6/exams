@@ -65,7 +65,7 @@ def delete_question (db: Session, idexam: int, num_question: int):
                                     models.Question.num_question == num_question).first() 
     db.delete(question_to_delete)
     db.commit()
-    return num_question
+    return question_to_delete
 
 def error_message(message):
     return {

@@ -68,9 +68,14 @@ def get_question_by_id (idexam:int, num_question: int, db=Depends(db)):
 def create_question(question: Question, db=Depends(db)):
     return crud.create_question(db, question)
 
-@app.delete('/exams/questions/')
-def delete_question(question: Question, db=Depends(db)):
-    return crud.delete_question(db, question)
+@app.delete('/exams/{idexam}/questions/{num_question}/')
+def delete_question(idexam:int, num_question:int, db=Depends(db)):
+    question = crud.get_question_by_id(db,idexam, num_question)
+    if question:
+        return crud.delete_question(db, idexam, num_question)
+    else:     
+        raise HTTPException(404, crud.error_message(f'No existen la pregunta número {num_question} para el examen con id: {idexam} '))
+ 
 
 if __name__ == '__main__':
     uvicorn.run('main:app', host='0.0.0.0', port=int(os.environ.get('PORT')), reload=True)        
