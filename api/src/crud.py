@@ -52,30 +52,7 @@ def update_question(db: Session, idexam: int, num_question: int, question: schem
     question_to_update          = db.query (models.Question).filter( 
                                             models.Question.idexam == idexam).filter(
                                             models.Question.num_question == num_question).first() 
-    question_to_update.idtype           = question_model.idtype
-    question_to_update.desc_question    = question_model.desc_question
-    question_to_update.answer           = question_model.answer
-    question_to_update.true_false       = question_model.true_false
-    question_to_update.desc_choise0     = question_model.desc_choise0
-    question_to_update.answer_choise0   = question_model.answer_choise0
-    question_to_update.desc_choise1     = question_model.desc_choise1
-    question_to_update.answer_choise1   = question_model.answer_choise1
-    question_to_update.desc_choise2     = question_model.desc_choise2
-    question_to_update.answer_choise2   = question_model.answer_choise2
-    question_to_update.desc_choise3     = question_model.desc_choise3
-    question_to_update.answer_choise3   = question_model.answer_choise3
-    question_to_update.desc_choise4     = question_model.desc_choise4
-    question_to_update.answer_choise4   = question_model.answer_choise4
-    question_to_update.desc_choise5     = question_model.desc_choise5
-    question_to_update.answer_choise5   = question_model.answer_choise5
-    question_to_update.desc_choise6     = question_model.desc_choise6
-    question_to_update.answer_choise6   = question_model.answer_choise6
-    question_to_update.desc_choise7     = question_model.desc_choise7
-    question_to_update.answer_choise7   = question_model.answer_choise7
-    question_to_update.desc_choise8     = question_model.desc_choise8
-    question_to_update.answer_choise8   = question_model.answer_choise8
-    question_to_update.desc_choise9     = question_model.desc_choise9
-    question_to_update.answer_choise9   = question_model.answer_choise9   
+    question_to_update.description      = question_model.description
     
     db.add(question_to_update)
     db.commit()
