@@ -37,6 +37,14 @@ def get_exams_by_creator (idcreator: int, db=Depends(db)):
     else:
         raise HTTPException(404, crud.error_message(f'No existen examenes creados por el creador con id {idcreator}'))
 
+@app.get('/exams/courses/{idcourse}/')
+def get_exams_by_course (idcourse: int, db=Depends(db)):
+    exams = crud.get_exams_by_course(db, idcourse)
+    if exams:
+        return exams
+    else:
+        raise HTTPException(404, crud.error_message(f'No existen examenes para el curso con id {idcourse}'))
+
 @app.post('/exams/')
 def create_exam(exam: Exam, db=Depends(db)):
     return crud.create_exam(db, exam)

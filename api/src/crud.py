@@ -1,13 +1,17 @@
 from    sqlalchemy.orm  import Session
 import  schema, models
 
-def get_exam_by_id(db: Session, id: int = None):
-    if id:
-        return db.query (models.Exam).filter(models.Exam.id == id).first()
+def get_exam_by_id(db: Session, idexam: int = None):
+    if idexam:
+        return db.query (models.Exam).filter(models.Exam.idexam == idexam).first()
     
 def get_exams_by_creator(db: Session, idcreator: int = None):
     if idcreator:
         return db.query (models.Exam).filter(models.Exam.idcreator == idcreator).all()
+    
+def get_exams_by_course(db: Session, idcourse: int = None):
+    if idcourse:
+        return db.query (models.Exam).filter(models.Exam.idcourse == idcourse).all()    
         
 def create_exam(db: Session, exam: schema.Exam):
     exam_model  = models.Exam(**exam.dict())
@@ -16,10 +20,11 @@ def create_exam(db: Session, exam: schema.Exam):
     db.refresh(exam_model)
     return exam_model
 
-def update_exam(db: Session, id: int, exam: schema.Exam):
+def update_exam(db: Session, idexam: int, exam: schema.Exam):
     exam_model                  = models.Exam(**exam.dict())
-    exam_to_update              = db.query (models.Exam).filter(models.Exam.id == id).first() 
+    exam_to_update              = db.query (models.Exam).filter(models.Exam.idexam == idexam).first() 
     exam_to_update.idcreator    = exam_model.idcreator
+    exam_to_update.idcourse     = exam_model.idcourse
     exam_to_update.title        = exam_model.title
     exam_to_update.description  = exam_model.description 
     
